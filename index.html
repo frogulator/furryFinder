@@ -11,6 +11,7 @@
             font-family: monospace;
             padding: 0;
             margin: 0;
+            color: #fa73ff;
         }
 
         body {
@@ -27,10 +28,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 2rem;
             width: 60%;
             margin: auto;
             height: 10vh;
-            gap: 3rem;
             padding-block: 2rem;
             padding-top: 4rem;
         }
@@ -87,6 +88,10 @@
             color: #fa73ff;
         }
 
+        .fas {
+            color: #fffdf8;
+        }
+
        
 
         #result-image,  #image-container  {
@@ -94,14 +99,22 @@
         }
 
         @media only screen and (max-width: 1000px) {
-            .outer-wrapper {
+        .outer-wrapper {
             width: 90vw;
             margin: auto;
             height: 100vh;
         }
 
         .logo {
-            width: 60%;
+            width: 90%;
+        }
+
+        .dog {
+            max-width: 6rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
         }
 }
 
@@ -142,7 +155,6 @@
                 <h1>goFetchItBuddy</h1>
                 <p class="subtitle">your friendly furry finder</p>
             </div>
-         
         </div>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Search...">
