@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine-Like Input</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+
+        * {
+            font-family: monospace;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-image: radial-gradient(#fffdf8, rgb(243, 236, 255));
+        }
+
+        .outer-wrapper {
+            width: 60vw;
+            margin: auto;
+            height: 100vh;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70%;
+            margin: auto;
+            height: 10vh;
+            gap: 3rem;
+            padding-block: 2rem;
+            padding-top: 4rem;
+        }
+
+        .dog {
+            width: 7rem;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: #fa73ff;
+        }
+
+        #search-input {
+            border: 1px #fa73ff solid;
+            border-right: none;
+            flex-grow: 1;
+            padding: .7rem 1rem;
+            font-size: 1.2rem;
+            border-radius: 0.4rem 0 0 0.4rem;
+        }
+    
+        .search-icon {
+            padding: 11px;
+            background-color: #fa73ff;
+            color: white;
+            border-top-right-radius: 0.4rem;
+            border-bottom-right-radius: 0.4rem;
+            cursor: pointer;
+        }
+
+        input::placeholder {
+            color: #e8b3fa;
+            font-size: 1.2rem;
+        }
+
+        #search-input:focus {
+            box-shadow: 0 0 2px #e8b3fa;
+            border: 1px #fa73ff solid;
+            border-right: none;
+            outline: none;
+        }
+
+        .text-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fa73ff;
+        }
+
+       
+
+        #result-image,  #image-container  {
+            padding-top: 2rem;
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .outer-wrapper {
+            width: 90vw;
+            margin: auto;
+            height: 100vh;
+        }
+
+        .logo {
+            width: 60%;
+        }
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Blur the background */
+}
+
+#popupImage {
+    max-width: 80%; /* Adjust as needed */
+    max-height: 80%; /* Adjust as needed */
+    margin: auto;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div id="overlay" onclick="closeOverlay()">
+        <img id="popupImage" src="greetings.svg" alt="Popup Image">
+    </div>
+    
+    <audio id="woofSound" src="woof.mp3" type="audio/mpeg"></audio>
+
+    <div class="outer-wrapper">
+        <div class="logo">
+            <img class="dog" src="dog.svg">
+            <div class="text-wrapper">
+                <h1>goFetchItBuddy</h1>
+                <p class="subtitle">your friendly furry finder</p>
+            </div>
+         
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search...">
+
+            <div class="search-icon">
+                <i class="fas fa-search" onclick="searchAndDisplayImage()"></i>
+            </div>
+        </div>
+
+        <div id="image-container">
+            <img id="result-image" src="">
+        </div>
+    </div>
+
+    <script>
+
+    function closeOverlay() {
+    document.getElementById('overlay').style.display = 'none';
+    }
+
+        function searchAndDisplayImage() {
+            fetch('https://dog.ceo/api/breeds/image/random')
+                .then(response => response.json())
+                .then(data => {
+                    displayImage(data.message); 
+                })
+                .catch(error => console.error('Error:', error));
+
+                var woofSound = document.getElementById('woofSound');
+                woofSound.play();
+        }
+    
+        function displayImage(imageUrl) {
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = ''; 
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.style.width = '100%'; 
+            img.style.height = 'auto';
+            imageContainer.appendChild(img);
+        }
+    </script>
+    
+</body>
+</html>
